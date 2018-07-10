@@ -1,0 +1,1517 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+    "version": "1.0.0",
+    "title": "Swagger Petstore",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:1337",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Everything about your user",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "customer",
+      "description": "Everything about your customer"
+    },
+    {
+      "name": "documents",
+      "description": "Everything about your documents"
+    },
+    {
+      "name": "basestation",
+      "description": "Everything about your basestation"
+    },
+    {
+      "name": "connection",
+      "description": "Everything about your connection"
+    },
+    {
+      "name": "packages",
+      "description": "Everything about your packages"
+    },
+    {
+      "name": "Connecion Renewal",
+      "description": "Everything about your Connection Renewal"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/user/create": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "mobile",
+            "in": "query",
+            "description": "The user name for login",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "The password for login in clear text",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/findOne": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "find user by id",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "findUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/find": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get all user",
+        "description": "",
+        "operationId": "getUserByName",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/user/update": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Update user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "update",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created user object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/user/delete": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Delete user",
+        "description": "",
+        "operationId": "delete",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "user id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/customer/create": {
+      "post": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Create customer",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createCustomer",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created customer object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/customer/findOne": {
+      "post": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "find customer by id",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "findCustomer",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/customer/find": {
+      "get": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Get all customer",
+        "description": "",
+        "operationId": "getUserById",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "customer not found"
+          }
+        }
+      }
+    },
+    "/customer/update": {
+      "post": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Update customer",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateCustomer",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created customer object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Customer"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/customer/delete": {
+      "delete": {
+        "tags": [
+          "customer"
+        ],
+        "summary": "Delete customer",
+        "description": "",
+        "operationId": "deleteCustomer",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "customer id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/documents/create": {
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Create Documents",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createDocuments",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created Documents object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Documents"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/documents/findOne": {
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "find documents by id",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "findDocuments",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/documents/find": {
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Get all Documents",
+        "description": "",
+        "operationId": "getDocuments",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Documents"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Documents not found"
+          }
+        }
+      }
+    },
+    "/documents/update": {
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Update Documents",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateDocuments",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created Documents object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Documents"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/documents/delete": {
+      "delete": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Delete Documents",
+        "description": "",
+        "operationId": "deleteDocuments",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Documents id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/basestation/create": {
+      "post": {
+        "tags": [
+          "basestation"
+        ],
+        "summary": "Create Basestation",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createBasestation",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created Basestation object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Basestation"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/basestation/findOne": {
+      "post": {
+        "tags": [
+          "basestation"
+        ],
+        "summary": "find basestation by id",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "findBasestation",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/basestation/find": {
+      "get": {
+        "tags": [
+          "basestation"
+        ],
+        "summary": "Get all Basestation",
+        "description": "",
+        "operationId": "getBasestation",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Documents"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Basestation not found"
+          }
+        }
+      }
+    },
+    "/basestation/update": {
+      "post": {
+        "tags": [
+          "basestation"
+        ],
+        "summary": "Update Basestation",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateBasestation",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update Basestation object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Basestation"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/basestation/delete": {
+      "delete": {
+        "tags": [
+          "basestation"
+        ],
+        "summary": "Delete Basestation",
+        "description": "",
+        "operationId": "deleteBasestation",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Basestation id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/connection/create": {
+      "post": {
+        "tags": [
+          "connection"
+        ],
+        "summary": "Create Connection",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createConnection",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created Connection object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Connection"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/connection/findOne": {
+      "post": {
+        "tags": [
+          "connection"
+        ],
+        "summary": "find connection by id",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "findConnection",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/connection/find": {
+      "get": {
+        "tags": [
+          "connection"
+        ],
+        "summary": "Get all Connection",
+        "description": "",
+        "operationId": "getConnection",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Connection"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Connection not found"
+          }
+        }
+      }
+    },
+    "/connection/update": {
+      "post": {
+        "tags": [
+          "connection"
+        ],
+        "summary": "Update Connection",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateConnection",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update Basestation object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Basestation"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/connection/delete": {
+      "delete": {
+        "tags": [
+          "connection"
+        ],
+        "summary": "Delete Connection",
+        "description": "",
+        "operationId": "deleteConnection",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Connection id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/packages/create": {
+      "post": {
+        "tags": [
+          "packages"
+        ],
+        "summary": "Create Packages",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createPackages",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created Packages object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Packages"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/packages/findOne": {
+      "post": {
+        "tags": [
+          "packages"
+        ],
+        "summary": "find Packages by id",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "findPackages",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/packages/find": {
+      "get": {
+        "tags": [
+          "packages"
+        ],
+        "summary": "Get all Packages",
+        "description": "",
+        "operationId": "getPackages",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Packages"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Packages not found"
+          }
+        }
+      }
+    },
+    "/packages/update": {
+      "post": {
+        "tags": [
+          "packages"
+        ],
+        "summary": "Update Packages",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updatePackages",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update Packages object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Packages"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/packages/delete": {
+      "delete": {
+        "tags": [
+          "packages"
+        ],
+        "summary": "Delete Packages",
+        "description": "",
+        "operationId": "deletePackages",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Packages id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/connrenewal/create": {
+      "post": {
+        "tags": [
+          "Connecion Renewal"
+        ],
+        "summary": "Create Connecion Renewal",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "createConnRenewal",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Created Packages object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConnecionRenewal"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/connrenewal/findOne": {
+      "post": {
+        "tags": [
+          "Connecion Renewal"
+        ],
+        "summary": "find Connecion Renewal by id",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "findConnecionRenewal",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/connrenewal/find": {
+      "get": {
+        "tags": [
+          "Connecion Renewal"
+        ],
+        "summary": "Get all Connecion Renewal",
+        "description": "",
+        "operationId": "getConnRenewal",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ConnecionRenewal"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "ConnRenewal not found"
+          }
+        }
+      }
+    },
+    "/connrenewal/update": {
+      "post": {
+        "tags": [
+          "Connecion Renewal"
+        ],
+        "summary": "Update Connecion Renewal",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateConnRenewal",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Update Connecion Renewal object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConnecionRenewal"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/connrenewal/delete": {
+      "delete": {
+        "tags": [
+          "Connecion Renewal"
+        ],
+        "summary": "Delete Connecion Renewal",
+        "description": "",
+        "operationId": "deleteConnRenewal",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Connecion Renewal id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "string"
+            },
+            "headers": {
+              "X-Rate-Limit": {
+                "type": "integer",
+                "format": "int32",
+                "description": "calls per hour allowed by the user"
+              },
+              "X-Expires-After": {
+                "type": "string",
+                "format": "date-time",
+                "description": "date in UTC when token expires"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "role_type": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "email_signature": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "password_reset": {
+          "type": "boolean"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "job_title": {
+          "type": "string"
+        },
+        "active": {
+          "type": "number"
+        },
+        "status_id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "User Status"
+        },
+        "is_admin": {
+          "type": "boolean"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Customer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "cnic": {
+          "type": "string"
+        },
+        "status_id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "customer Status"
+        }
+      },
+      "xml": {
+        "name": "Customer"
+      }
+    },
+    "Documents": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "file_name": {
+          "type": "string"
+        },
+        "file_path": {
+          "type": "string"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "status_id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Documents Status"
+        }
+      },
+      "xml": {
+        "name": "Documents"
+      }
+    },
+    "Basestation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "lag": {
+          "type": "string"
+        },
+        "bandwidth": {
+          "type": "string"
+        },
+        "max_connection": {
+          "type": "string"
+        },
+        "status_id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Basestation Status"
+        }
+      },
+      "xml": {
+        "name": "Basestation"
+      }
+    },
+    "Connection": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "address": {
+          "type": "string"
+        },
+        "router_of": {
+          "type": "string"
+        },
+        "router_brand": {
+          "type": "string"
+        },
+        "router_model": {
+          "type": "string"
+        },
+        "router_price": {
+          "type": "string"
+        },
+        "drop_wire_of": {
+          "type": "string"
+        },
+        "drop_wire_length": {
+          "type": "string"
+        },
+        "price_per_meter": {
+          "type": "string"
+        },
+        "is_wireless": {
+          "type": "boolean"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "lag": {
+          "type": "string"
+        },
+        "status_id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Connection Status"
+        },
+        "customer_id": {
+          "type": "number"
+        },
+        "basestation_id": {
+          "type": "number"
+        },
+        "package_id": {
+          "type": "number"
+        },
+        "salesman_id": {
+          "type": "number"
+        },
+        "dealer_id": {
+          "type": "number"
+        }
+      },
+      "xml": {
+        "name": "Connection"
+      }
+    },
+    "Packages": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "package_name": {
+          "type": "string"
+        },
+        "bandwidth": {
+          "type": "string"
+        },
+        "data_limit": {
+          "type": "string"
+        },
+        "status_id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Packages Status"
+        }
+      },
+      "xml": {
+        "name": "Packages"
+      }
+    },
+    "ConnecionRenewal": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "renewal_date": {
+          "type": "string"
+        },
+        "connection_id": {
+          "type": "number"
+        },
+        "status_id": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Connecion Renewal Status"
+        }
+      },
+      "xml": {
+        "name": "Connecion Renewal"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}
